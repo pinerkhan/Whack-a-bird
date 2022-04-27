@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+    	body{
+    		background-image:url(https://phonoteka.org/uploads/posts/2021-05/1620209162_3-phonoteka_org-p-fon-dlya-sozdaniya-igri-3.png);
+    		background-size:cover;
+    	}
+    	.hole{
+    		width: 200px;
+    		height:200px;
+    		background-image:url(gnezdo-removebg-preview.png);
+    		background-size:100% 100%; 
+    		margin-left:50px;
+    		position:relative;
+    		z-index: 1;
+    	}
+    	.block{
+    		width:800px;
+    		height:800px;
+    		margin-left:auto;
+    		margin-right:auto;
+    		display: flex;
+    		flex-wrap:wrap;
+    		margin-top:100px;
+    	}
+    	.mole{
+    		width:200px;
+    		height:150px;
+    		position:absolute;
+    		top:0px;
+    		left:0px;
+    		transition:1s;
+    		z-index: -10;
+    	}
+ 
+    </style>
+</head>
+<body>
+	<h1> Количество очков: <span class = "score"></span> </h1>
+	<h1> Осталось времени: <span class = "date"> 8 </span> </h1>
+	<div class = "block">
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+		<div class = "hole"></div>
+	</div>
+<script>
+	let score = 0;
+	let time = 8;
+	let date = document.querySelector(".date")
+	let score1 = document.querySelector(".score")
+	let images = ["1.png", "2.png", "3.png"]
+	let block = document.querySelector(".block")
+	function create(){
+		let num = Math.random() * 8
+		let num1 = Math.round(num)
+		let main = document.querySelectorAll(".hole")
+		let crot = document.createElement("div")
+ 		main[num1].appendChild(crot)
+		crot.classList.add("mole")
+		function random(){
+			let pic = Math.random() * 3
+			let pic1 = Math.round(pic)
+			return pic1
+		}
+
+		let randomImage = random(2)
+
+		if(randomImage == 0){
+			crot.style.backgroundImage = "url(1-removebg-preview.png)"
+			crot.style.backgroundSize = "100% 100%"
+			crot.type = "+"
+		}
+		if(randomImage == 1){
+			crot.style.backgroundImage = "url(2.png)"
+			crot.style.backgroundSize = "100% 100%"
+			crot.type = "="
+		}
+		if(randomImage == 2){
+			crot.style.backgroundImage = "url(3-removebg-preview.png)"
+			crot.style.backgroundSize = "100% 100%"
+			crot.type = "-"
+		}
+		crot.onclick = function(){
+			crot.style.display = "none"
+			if(crot.type == "+"){
+				score = score + 2
+				score1.innerHTML = score
+			}
+			if(crot.type == "="){
+				score = score + 1
+				score1.innerHTML = score
+			}
+			if(crot.type == "-"){
+				score = score - 2
+				score1.innerHTML = score
+			}
+			if(score >= 6 ){
+				block.style.display = "none"
+				block.style.backgroundImage = "url(http://risovach.ru/upload/2014/03/mem/spanch-bob_46584187_orig_.jpg)"
+				alert("You win!")
+			}
+		}
+		function hidden(){
+			crot.style.display = "none"
+		}
+		function animation(){
+			crot.style.top = -50 + "px"
+		}
+		function animation1(){
+			crot.style.top = 0 + "px"
+		}
+		
+		setInterval(hidden,1500)
+		setInterval(animation,500)
+		setInterval(animation1,1000)
+		
+	}
+	function finish(){
+			block.style.display = "none"
+			date.style.display = "none"
+			score1.style.display = "none"
+			block.style.backgroundImage = "url(http://risovach.ru/upload/2014/03/mem/spanch-bob_46584187_orig_.jpg)"
+		}
+	setInterval(create,700)
+	let int4;
+		function counts(){
+			time = time - 1
+			date.innerHTML = time;
+		}
+	int4 = setInterval(counts,1000)
+	setTimeout(finish,8000)
+
+
+
+</script>
+</body>
+</html>
